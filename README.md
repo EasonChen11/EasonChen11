@@ -1,34 +1,78 @@
-<!--
-### Hi there 👋
-**EasonChen11/EasonChen11** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+<div align="center">
 
-Here are some ideas to get you started:
+# Hi, I'm Eason 👋
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...https://devicon.dev/
--->
-# 💫 About Me:
-🌱 I’m currently learning OCPP and Python backend
+**Embedded / Systems Developer**
 
+M.S. student @ National Yang Ming Chiao Tung University  
+Interested in **Linux systems, embedded firmware, and networking**
 
-# 💻 Tech Stack:
-![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white) ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![PowerShell](https://img.shields.io/badge/PowerShell-%235391FE.svg?style=for-the-badge&logo=powershell&logoColor=white) ![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black)
-<!--
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=EasonChen11&theme=radical&hide_border=false&include_all_commits=false&count_private=false)<br/>
-![](https://github-readme-streak-stats.herokuapp.com/?user=EasonChen11&theme=radical&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=EasonChen11&theme=radical&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
-
-### 🔝 Top Contributed Repo
-![](https://github-contributor-stats.vercel.app/api?username=EasonChen11&limit=5&theme=dark&combine_all_yearly_contributions=true)
+</div>
 
 ---
-[![](https://visitcount.itsvg.in/api?id=EasonChen11&icon=0&color=0)](https://visitcount.itsvg.in)
 
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+## 🚀 What I'm Working On
+
+- Learning **Linux system programming**
+- Exploring **embedded networking and firmware development**
+- Building projects on **MCU platforms and Linux environments**
+
+---
+
+## 🛠 Tech Stack
+
+### Programming
+
+![C](https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+
+### Embedded / Systems
+
+![ESP32](https://img.shields.io/badge/ESP32-black?style=flat-square)
+![FreeRTOS](https://img.shields.io/badge/FreeRTOS-00979D?style=flat-square)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
+
+### Tools
+
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Jetson Nano](https://img.shields.io/badge/Jetson_Nano-A8E063?style=flat-square&logo=nvidia&logoColor=black)
+
+---
+
+## 📊 GitHub Stats
+
+<div align="center">
+
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=EasonChen11&show_icons=true&theme=tokyonight&hide_border=true)
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=EasonChen11&layout=compact&theme=tokyonight&hide_border=true)
+
+</div>
+
+---
+
+## 🎓 Education
+
+| | |
+|---|---|
+| 🎓 **M.S.** | National Yang Ming Chiao Tung University |
+| 🏫 **B.S.** | National Chung Cheng University |
+
+---
+
+## 🌱 Interests
+
+- Linux kernel and system programming
+- Embedded firmware development
+- Networking systems and protocol design
+
+---
+
+<div align="center">
+
+Feel free to reach out if you'd like to talk about  
+**Linux, Embedded Systems, or Networking**
+
+</div>
