@@ -333,9 +333,10 @@ def pills(items, x0, y0, max_x, t):
     return "".join(out)
 
 
-def daughter(x, y, w, h, title, items, t):
-    """Small module board plugged in by a 3-pad header on its left edge."""
-    pads = "".join(f'<rect x="{x - 3}" y="{y + h / 2 - 13 + i * 10:.1f}" width="8" height="6" rx="1" fill="{t["copper"]}"/>'
+def daughter(x, y, w, h, title, items, t, side="left"):
+    """Small module board plugged in by a 3-pad header on its left or right edge."""
+    hx = x - 3 if side == "left" else x + w - 5
+    pads = "".join(f'<rect x="{hx}" y="{y + h / 2 - 13 + i * 10:.1f}" width="8" height="6" rx="1" fill="{t["copper"]}"/>'
                    for i in range(3))
     return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="{t["board2"]}" '
             f'stroke="{t["copper"]}" stroke-opacity="0.7" stroke-width="1.5"/>'
@@ -345,31 +346,31 @@ def daughter(x, y, w, h, title, items, t):
 
 
 def stack_card(t):
-    """SKILLS IC fanning out over bent traces to one daughter board per group (2 x 2)."""
+    """SKILLS IC in the centre, radiating to one daughter board per group (2 left, 2 right)."""
     w, h = FULL, 300
-    x, y, cw, ch = 50, 85, 150, 150
+    cw = ch = 150
+    x, y = (w - cw) / 2, 75
     groups = CFG["skills"]
     mw, mh = 228, 100
-    cols, rows_y = (290, 558), (40, 180)
-    # pin k -> (module column, module row) and its route; pins sit at y + ch*(k+1)/5
+    rows_y = (40, 180)
     py = [y + ch * (k + 1) / 5 for k in range(4)]
-    mid = [ry + mh / 2 for ry in rows_y]
-    routes = [
-        ((0, 0), [(x + cw + 8, py[0]), (245, py[0]), (245 + py[0] - mid[0], mid[0]), (cols[0] - 3, mid[0])]),
-        ((1, 0), [(x + cw + 8, py[1]), (247, py[1]), (254, 152), (532, 152), (532, mid[0] + 10),
-                  (542, mid[0]), (cols[1] - 3, mid[0])]),
-        ((1, 1), [(x + cw + 8, py[2]), (247, py[2]), (254, 168), (544, 168), (544, mid[1] - 6),
-                  (550, mid[1]), (cols[1] - 3, mid[1])]),
-        ((0, 1), [(x + cw + 8, py[3]), (245, py[3]), (245 + mid[1] - py[3], mid[1]), (cols[0] - 3, mid[1])]),
-    ]
     parts = []
     for k in range(4):
         parts.append(f'<rect x="{x - 8}" y="{py[k] - 3:.1f}" width="8" height="6" fill="{t["pin"]}"/>'
                      f'<rect x="{x + cw}" y="{py[k] - 3:.1f}" width="8" height="6" fill="{t["pin"]}"/>')
-    for k, ((c, r), pts) in enumerate(routes):
+    # groups in reading order: top-left, top-right, bottom-left, bottom-right
+    for k, (name, items) in enumerate(groups[:4]):
+        right, bottom = k % 2, k // 2
+        pin_y = py[3] if bottom else py[0]
+        mod_y = rows_y[bottom] + mh / 2
+        bend = abs(mod_y - pin_y)
+        # left-side route, mirrored for the right side
+        pts = [(x - 8, pin_y), (x - 30, pin_y), (x - 30 - bend, mod_y), (40 + mw + 3, mod_y)]
+        if right:
+            pts = [(w - px, p_y) for px, p_y in pts]
         parts.append(trace(pts, t, pulse=0.6 * k))
-        name, items = groups[k]
-        parts.append(daughter(cols[c], rows_y[r], mw, mh, name, items, t))
+        mx = w - 40 - mw if right else 40
+        parts.append(daughter(mx, rows_y[bottom], mw, mh, name, items, t, side="left" if right else "right"))
     parts.append(text(x + cw / 2, y + ch / 2 + 6, "SKILLS", 17, t["text"], MONO, weight="700",
                       anchor="middle", spacing=3))
     title = "Skills: " + "; ".join(f"{a}: {', '.join(b)}" for a, b in groups)
