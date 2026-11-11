@@ -259,7 +259,7 @@ def activity_card(d, t):
 {''.join(cells)}
 """
     return board(w, h, t, f"{cal['totalContributions']} contributions in the last year",
-                 "ACTIVITY · LAST 26 WEEKS", (x, y, cw, ch), content, lr=4, extra_defs=defs)
+                 "ACTIVITY", (x, y, cw, ch), content, lr=4, extra_defs=defs)
 
 
 def repo_card(i, proj, d, t):
@@ -284,23 +284,45 @@ def repo_card(i, proj, d, t):
     return board(w, h, t, f"{r['name']}: {desc}", None, (x, y, cw, ch), content, tb=6)
 
 
-def stack_card(t):
+def pills(items, px, ry, t):
+    out = []
+    for item in items:
+        pw = 18 + 7.6 * len(item)
+        out.append(f'<rect x="{px:.1f}" y="{ry - 15}" width="{pw:.1f}" height="22" rx="11" fill="{t["board"]}" '
+                   f'fill-opacity="0.9" stroke="{t["copper"]}" stroke-opacity="0.7"/>')
+        out.append(text(px + pw / 2, ry + 0.5, item, 13.5, t["silk"], anchor="middle"))
+        px += pw + 8
+    return "".join(out)
+
+
+def stack_card(t, variant="A"):
+    """Pinout: an IC whose right-side pins fan out to one row per skill group.
+    A: group names printed inside the IC next to their pins (datasheet style).
+    B: IC labelled SKILLS; group names sit on the board after each trace."""
     w, h = FULL, 230
-    x, y, cw, ch = 44, 50, 742, 150
     groups = CFG["skills"]
-    rows = []
+    x, y, ch = 44, 50, 150
+    cw = 180 if variant == "A" else 150
+    pitch = ch / (len(groups) + 1)
+    parts = []
     for k, (name, items) in enumerate(groups):
-        ry = y + 32 + k * 30
-        rows.append(text(x + 24, ry, name.upper(), 12, t["copper"], MONO, weight="700", spacing=1.5))
-        px = x + 170
-        for item in items:
-            pw = 18 + 7.6 * len(item)
-            rows.append(f'<rect x="{px:.1f}" y="{ry - 15}" width="{pw:.1f}" height="22" rx="11" fill="none" '
-                        f'stroke="{t["muted"]}" stroke-opacity="0.5"/>')
-            rows.append(text(px + pw / 2, ry + 0.5, item, 13.5, t["text"], anchor="middle"))
-            px += pw + 8
+        py = y + pitch * (k + 1)
+        parts.append(f'<rect x="{x - 8}" y="{py - 3:.1f}" width="8" height="6" fill="{t["pin"]}"/>'
+                     f'<rect x="{x + cw}" y="{py - 3:.1f}" width="8" height="6" fill="{t["pin"]}"/>')
+        via = x + cw + 40
+        parts.append(trace([(x + cw + 8, py), (via, py)], t, pulse=0.5 * k))
+        if variant == "A":
+            parts.append(text(x + 22, py + 4.5, k + 1, 11, t["muted"], MONO))
+            parts.append(text(x + 40, py + 4.5, name.upper(), 12.5, t["text"], MONO, weight="700", spacing=1))
+            parts.append(pills(items, via + 16, py + 4, t))
+        else:
+            parts.append(text(via + 16, py + 4.5, name.upper(), 12, t["copper"], MONO, weight="700", spacing=1.5))
+            parts.append(pills(items, via + 140, py + 4, t))
+    if variant == "B":
+        parts.append(text(x + cw / 2, y + ch / 2 + 6, "SKILLS", 17, t["text"], MONO, weight="700",
+                          anchor="middle", spacing=3))
     title = "Skills: " + "; ".join(f"{a}: {', '.join(b)}" for a, b in groups)
-    return board(w, h, t, title, "SKILLS", (x, y, cw, ch), "".join(rows), lr=3, tb=24)
+    return board(w, h, t, title, "SKILLS" if variant == "A" else None, (x, y, cw, ch), "".join(parts))
 
 
 def main():
@@ -315,7 +337,8 @@ def main():
             "id": id_card(d, t, avatar),
             "about": about_card(t),
             "activity": activity_card(d, t),
-            "stack": stack_card(t),
+            "stack-a": stack_card(t, "A"),
+            "stack-b": stack_card(t, "B"),
         }
         for i, proj in enumerate(CFG["projects"]):
             cards[f"repo-{i + 1}"] = repo_card(i, proj, d, t)
