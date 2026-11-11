@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="320" viewBox="0 0 840 320" role="img" aria-label="EasonChen's holo ID card">
+<title>EasonChen's holo ID card</title>
+<defs>
+  <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f5f7ff"/><stop offset="1" stop-color="#e6eaf7"/>
+  </linearGradient>
+  <linearGradient id="foil" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="840" y2="320" spreadMethod="reflect">
+    <stop offset="0" stop-color="#ff6ec7"/><stop offset="0.2" stop-color="#ffd36e"/>
+    <stop offset="0.4" stop-color="#6effa8"/><stop offset="0.6" stop-color="#6ed6ff"/>
+    <stop offset="0.8" stop-color="#a36eff"/><stop offset="1" stop-color="#ff6ec7"/>
+    <animateTransform attributeName="gradientTransform" type="translate"
+      values="0 0; 420 160; 0 0" dur="8s" repeatCount="indefinite"/>
+  </linearGradient>
+  <linearGradient id="shine" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="840" y2="0" gradientTransform="rotate(20)">
+    <stop offset="0.40" stop-color="#fff" stop-opacity="0"/>
+    <stop offset="0.50" stop-color="#fff" stop-opacity="0.55"/>
+    <stop offset="0.60" stop-color="#fff" stop-opacity="0"/>
+    <animateTransform attributeName="gradientTransform" type="translate" additive="sum"
+      values="-840 0; 840 0" dur="5s" repeatCount="indefinite"/>
+  </linearGradient>
+  <pattern id="grain" width="6" height="6" patternUnits="userSpaceOnUse">
+    <path d="M0 6 L6 0" stroke="#5a607a" stroke-opacity="0.12" stroke-width="1"/>
+  </pattern>
+  <clipPath id="card"><rect x="4" y="4" width="832" height="312" rx="18"/></clipPath>
+</defs><g clip-path="url(#card)">
+  <rect width="840" height="320" fill="url(#body)"/>
+  <rect width="840" height="320" fill="url(#grain)"/>
+  <rect width="840" height="320" fill="url(#foil)" opacity="0.22"/>
+  
+  <circle cx="135" cy="160" r="88" fill="none" stroke="url(#foil)" stroke-width="4"/>
+  <clipPath id="av"><circle cx="135" cy="160" r="80"/></clipPath>
+  <image href="data:image/png;base64,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" x="55" y="80" width="160" height="160" clip-path="url(#av)"/>
+  <g font-family="'Segoe UI', Ubuntu, 'Helvetica Neue', Arial, sans-serif">
+    <text x="250" y="62" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="12" letter-spacing="3" fill="#5a607a">HOLO ID · No. 0011 · SINCE 2022</text>
+    <text x="250" y="104" font-size="38" font-weight="700" fill="#1f2335">EasonChen</text>
+    <text x="250" y="134" font-size="17" fill="#3d59a1">@EasonChen11 · Embedded / Systems Developer</text>
+    <rect x="250" y="170" width="56" height="26" rx="13" fill="none" stroke="#3d59a1" stroke-opacity="0.7"/><text x="278.0" y="188" text-anchor="middle" font-size="13" fill="#3d59a1">Linux</text><rect x="316" y="170" width="80" height="26" rx="13" fill="none" stroke="#3d59a1" stroke-opacity="0.7"/><text x="356.0" y="188" text-anchor="middle" font-size="13" fill="#3d59a1">Embedded</text><rect x="406" y="170" width="96" height="26" rx="13" fill="none" stroke="#3d59a1" stroke-opacity="0.7"/><text x="454.0" y="188" text-anchor="middle" font-size="13" fill="#3d59a1">Networking</text>
+    <line x1="250" y1="218" x2="800" y2="218" stroke="#5a607a" stroke-opacity="0.35"/>
+    <text x="250.0" y="256" font-size="26" font-weight="700" fill="#1f2335">20</text><text x="250.0" y="278" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="11" letter-spacing="1.5" fill="#5a607a">REPOS</text><text x="387.5" y="256" font-size="26" font-weight="700" fill="#1f2335">1</text><text x="387.5" y="278" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="11" letter-spacing="1.5" fill="#5a607a">STARS</text><text x="525.0" y="256" font-size="26" font-weight="700" fill="#1f2335">1</text><text x="525.0" y="278" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="11" letter-spacing="1.5" fill="#5a607a">FOLLOWERS</text><text x="662.5" y="256" font-size="26" font-weight="700" fill="#1f2335">912</text><text x="662.5" y="278" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="11" letter-spacing="1.5" fill="#5a607a">CONTRIB / YR</text>
+    <text x="250" y="156" font-size="14" fill="#5a607a">M.S. @ National Yang Ming Chiao Tung University</text>
+  </g>
+  <rect width="840" height="320" fill="url(#shine)"/>
+</g>
+<rect x="4" y="4" width="832" height="312" rx="18" fill="none" stroke="url(#foil)" stroke-width="3"/>
+</svg>

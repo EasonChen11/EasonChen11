@@ -1,13 +1,7 @@
-<div align="center">
-
-# Hi, I'm Eason 👋
-
-**Embedded / Systems Developer**
-
-M.S. student @ National Yang Ming Chiao Tung University  
-Interested in **Linux systems, embedded firmware, and networking**
-
-</div>
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/id-light.svg">
+  <img width="100%" alt="EasonChen holo ID card: Embedded / Systems Developer, M.S. @ NYCU" src="assets/id-dark.svg">
+</picture>
 
 ---
 
@@ -43,11 +37,10 @@ Interested in **Linux systems, embedded firmware, and networking**
 
 ## 📊 Most Used Languages
 
-<div align="center">
-
-![Top Languages](https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=EasonChen11&layout=compact&theme=tokyonight&hide_border=true)
-
-</div>
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/langs-light.svg">
+  <img width="100%" alt="Most used languages" src="assets/langs-dark.svg">
+</picture>
 
 ---
 
