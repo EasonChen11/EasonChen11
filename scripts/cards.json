@@ -1,0 +1,23 @@
+{
+  "login": "EasonChen11",
+  "name": "Eason Chen",
+  "title": "Embedded Systems / Firmware Engineer",
+  "part": "EC-11",
+  "about": [
+    {"tag": "EDU", "lines": ["NYCU · M.S. Network Engineering", "2025 – present"]},
+    {"tag": "EDU", "lines": ["CCU · B.S. Electrical Engineering", "2021 – 2025"]},
+    {"tag": "EXP", "lines": ["MediaTek · Firmware / Software Intern", "2026"]},
+    {"tag": "LNK", "lines": ["linkedin.com/in/easonchen11"]}
+  ],
+  "projects": [
+    {"repo": "MyMicroOcpp", "desc": "OCPP 1.6 charge point on ESP32, talking to a SteVe central system over WebSocket"},
+    {"repo": "esp32-iot-weight-scale", "desc": "Wi-Fi beehive scale: ESP32 with dual HX711, web dashboard and MQTT"},
+    {"dnp": true, "name": "RISC-V OS Kernel"}
+  ],
+  "skills": [
+    ["Programming", "C · C++ · Python · RISC-V Assembly"],
+    ["Embedded", "ESP32 · FreeRTOS · RISC-V (OrangePi RV2)"],
+    ["Systems", "Linux · OS Kernel · TCP/IP · Wi-Fi"],
+    ["Tools", "Git · Docker · adb · PlatformIO"]
+  ]
+}
