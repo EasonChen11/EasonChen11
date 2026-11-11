@@ -323,12 +323,12 @@ def pills(items, x0, y0, max_x, t):
     """Wrap items as pills starting at (x0, y0 baseline); returns svg."""
     out, px, py = [], x0, y0
     for item in items:
-        pw = 18 + 7.4 * len(item)
+        pw = 20 + 8 * len(item)
         if px + pw > max_x and px > x0:
-            px, py = x0, py + 28
-        out.append(f'<rect x="{px:.1f}" y="{py - 15}" width="{pw:.1f}" height="22" rx="11" fill="{t["board"]}" '
+            px, py = x0, py + 31
+        out.append(f'<rect x="{px:.1f}" y="{py - 16}" width="{pw:.1f}" height="24" rx="12" fill="{t["board"]}" '
                    f'fill-opacity="0.9" stroke="{t["copper"]}" stroke-opacity="0.7"/>')
-        out.append(text(px + pw / 2, py + 0.5, item, 13, t["silk"], anchor="middle"))
+        out.append(text(px + pw / 2, py + 1, item, 14, t["silk"], anchor="middle"))
         px += pw + 8
     return "".join(out)
 
@@ -341,18 +341,18 @@ def daughter(x, y, w, h, title, items, t, side="left"):
     return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="{t["board2"]}" '
             f'stroke="{t["copper"]}" stroke-opacity="0.7" stroke-width="1.5"/>'
             + pads
-            + text(x + 18, y + 24, title.upper(), 12, t["copper"], MONO, weight="700", spacing=1.5)
-            + pills(items, x + 18, y + 54, x + w - 14, t))
+            + text(x + 18, y + 26, title.upper(), 13, t["copper"], MONO, weight="700", spacing=1.5)
+            + pills(items, x + 18, y + 58, x + w - 14, t))
 
 
 def stack_card(t):
     """SKILLS IC in the centre, radiating to one daughter board per group (2 left, 2 right)."""
     w, h = FULL, 300
-    cw = ch = 150
-    x, y = (w - cw) / 2, 75
+    cw = ch = 110
+    x, y = (w - cw) / 2, 95
     groups = CFG["skills"]
-    mw, mh = 228, 100
-    rows_y = (40, 180)
+    mw, mh = 255, 106
+    rows_y = (36, 160)
     py = [y + ch * (k + 1) / 5 for k in range(4)]
     parts = []
     for k in range(4):
@@ -365,13 +365,13 @@ def stack_card(t):
         mod_y = rows_y[bottom] + mh / 2
         bend = abs(mod_y - pin_y)
         # left-side route, mirrored for the right side
-        pts = [(x - 8, pin_y), (x - 30, pin_y), (x - 30 - bend, mod_y), (40 + mw + 3, mod_y)]
+        pts = [(x - 8, pin_y), (x - 22, pin_y), (x - 22 - bend, mod_y), (40 + mw + 3, mod_y)]
         if right:
             pts = [(w - px, p_y) for px, p_y in pts]
         parts.append(trace(pts, t, pulse=0.6 * k))
         mx = w - 40 - mw if right else 40
         parts.append(daughter(mx, rows_y[bottom], mw, mh, name, items, t, side="left" if right else "right"))
-    parts.append(text(x + cw / 2, y + ch / 2 + 6, "SKILLS", 17, t["text"], MONO, weight="700",
+    parts.append(text(x + cw / 2, y + ch / 2 + 5, "SKILLS", 15, t["text"], MONO, weight="700",
                       anchor="middle", spacing=3))
     title = "Skills: " + "; ".join(f"{a}: {', '.join(b)}" for a, b in groups)
     return board(w, h, t, title, None, (x, y, cw, ch), "".join(parts))
