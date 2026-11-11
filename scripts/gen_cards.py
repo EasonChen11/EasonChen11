@@ -69,7 +69,7 @@ def fetch(token):
         }}
         contributionsCollection {{
           totalCommitContributions totalPullRequestContributions totalIssueContributions
-          totalPullRequestReviewContributions totalRepositoryContributions
+          totalRepositoryContributions
           contributionCalendar {{
           totalContributions
           weeks {{ contributionDays {{ date contributionCount }} }}
@@ -241,13 +241,12 @@ def contrib_card(d, t):
     x, y, cw, ch = 30, 50, w - 60, 200
     c = d["user"]["contributionsCollection"]
     rows = [("COMMITS", c["totalCommitContributions"]), ("PRS", c["totalPullRequestContributions"]),
-            ("ISSUES", c["totalIssueContributions"]), ("REVIEWS", c["totalPullRequestReviewContributions"]),
-            ("REPOS", c["totalRepositoryContributions"])]
+            ("ISSUES", c["totalIssueContributions"]), ("REPOS", c["totalRepositoryContributions"])]
     top = max(v for _, v in rows) or 1
     segs, seg_w, gap = 15, 9, 3
     parts = []
     for k, (label, v) in enumerate(rows):
-        ry = y + 38 + k * 32
+        ry = y + 44 + k * 38
         parts.append(text(x + 20, ry + 5, label, 12, t["muted"], MONO, spacing=1))
         lit = 0 if v == 0 else max(1, round(segs * math.log1p(v) / math.log1p(top)))
         for s_ in range(segs):
