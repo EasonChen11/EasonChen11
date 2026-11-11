@@ -67,7 +67,10 @@ def fetch(token):
         repositories(ownerAffiliations: OWNER, isFork: false, first: 100) {{
           totalCount nodes {{ stargazerCount }}
         }}
-        contributionsCollection {{ contributionCalendar {{
+        contributionsCollection {{
+          totalCommitContributions totalPullRequestContributions totalIssueContributions
+          totalPullRequestReviewContributions totalRepositoryContributions
+          contributionCalendar {{
           totalContributions
           weeks {{ contributionDays {{ date contributionCount }} }}
         }} }}
@@ -213,17 +216,50 @@ def id_card(d, t, avatar):
 
 
 def about_card(t):
+    w, h = FULL, 200
+    x, y, cw, ch = 44, 50, 742, 120
+    items = CFG["about"]
+    col = cw / len(items)
+    parts = []
+    for k, item in enumerate(items):
+        cx, ry = x + 28 + k * col, y + 44
+        org, role, years = item["lines"]
+        parts.append(f'<rect x="{cx}" y="{ry - 14}" width="42" height="20" rx="3" fill="{t["copper"]}"/>')
+        parts.append(text(cx + 21, ry + 1, item["tag"], 11, t["chip"], MONO, weight="700", anchor="middle", spacing=1))
+        parts.append(text(cx + 54, ry + 2, org, 17, t["text"], weight="700"))
+        parts.append(text(cx, ry + 30, role, 14, t["text"]))
+        parts.append(text(cx, ry + 50, years, 12, t["muted"], MONO))
+        if k:
+            parts.append(f'<line x1="{cx - 14}" y1="{y + 22}" x2="{cx - 14}" y2="{y + ch - 22}" '
+                         f'stroke="{t["muted"]}" stroke-opacity="0.3"/>')
+    return board(w, h, t, "About", "ABOUT", (x, y, cw, ch), "".join(parts), lr=2, tb=24)
+
+
+def contrib_card(d, t):
+    """Year breakdown as segmented LED level meters."""
     w, h = HALF, 280
     x, y, cw, ch = 30, 50, w - 60, 200
-    rows, ry = [], y + 40
-    for item in CFG["about"]:
-        rows.append(f'<rect x="{x + 16}" y="{ry - 14}" width="42" height="20" rx="3" fill="{t["copper"]}"/>')
-        rows.append(text(x + 37, ry + 1, item["tag"], 11, t["chip"], MONO, weight="700", anchor="middle", spacing=1))
-        for j, line in enumerate(item["lines"]):
-            rows.append(text(x + 70, ry + j * 17, line, 13.5 if j == 0 else 12,
-                             t["text"] if j == 0 else t["muted"], SANS if j == 0 else MONO))
-        ry += 44 if len(item["lines"]) > 1 else 30
-    return board(w, h, t, "About", "ABOUT", (x, y, cw, ch), "".join(rows), lr=4)
+    c = d["user"]["contributionsCollection"]
+    rows = [("COMMITS", c["totalCommitContributions"]), ("PRS", c["totalPullRequestContributions"]),
+            ("ISSUES", c["totalIssueContributions"]), ("REVIEWS", c["totalPullRequestReviewContributions"]),
+            ("REPOS", c["totalRepositoryContributions"])]
+    top = max(v for _, v in rows) or 1
+    segs, seg_w, gap = 15, 9, 3
+    parts = []
+    for k, (label, v) in enumerate(rows):
+        ry = y + 38 + k * 32
+        parts.append(text(x + 20, ry + 5, label, 12, t["muted"], MONO, spacing=1))
+        lit = 0 if v == 0 else max(1, round(segs * math.log1p(v) / math.log1p(top)))
+        for s_ in range(segs):
+            sx = x + 100 + s_ * (seg_w + gap)
+            if s_ < lit:
+                color = t["leds"][min(3, s_ * 4 // segs)]
+            else:
+                color = t["led_off"]
+            parts.append(f'<rect x="{sx}" y="{ry - 8}" width="{seg_w}" height="16" rx="2" fill="{color}"/>')
+        parts.append(text(x + cw - 20, ry + 6, v, 15, t["text"], weight="700", anchor="end"))
+    return board(w, h, t, "Contributions in the last year: " + ", ".join(f"{a} {b}" for a, b in rows),
+                 "CONTRIBUTIONS", (x, y, cw, ch), "".join(parts), lr=4)
 
 
 def activity_card(d, t):
@@ -284,45 +320,61 @@ def repo_card(i, proj, d, t):
     return board(w, h, t, f"{r['name']}: {desc}", None, (x, y, cw, ch), content, tb=6)
 
 
-def pills(items, px, ry, t):
-    out = []
+def pills(items, x0, y0, max_x, t):
+    """Wrap items as pills starting at (x0, y0 baseline); returns svg."""
+    out, px, py = [], x0, y0
     for item in items:
-        pw = 18 + 7.6 * len(item)
-        out.append(f'<rect x="{px:.1f}" y="{ry - 15}" width="{pw:.1f}" height="22" rx="11" fill="{t["board"]}" '
+        pw = 18 + 7.4 * len(item)
+        if px + pw > max_x and px > x0:
+            px, py = x0, py + 28
+        out.append(f'<rect x="{px:.1f}" y="{py - 15}" width="{pw:.1f}" height="22" rx="11" fill="{t["board"]}" '
                    f'fill-opacity="0.9" stroke="{t["copper"]}" stroke-opacity="0.7"/>')
-        out.append(text(px + pw / 2, ry + 0.5, item, 13.5, t["silk"], anchor="middle"))
+        out.append(text(px + pw / 2, py + 0.5, item, 13, t["silk"], anchor="middle"))
         px += pw + 8
     return "".join(out)
 
 
-def stack_card(t, variant="A"):
-    """Pinout: an IC whose right-side pins fan out to one row per skill group.
-    A: group names printed inside the IC next to their pins (datasheet style).
-    B: IC labelled SKILLS; group names sit on the board after each trace."""
-    w, h = FULL, 230
+def daughter(x, y, w, h, title, items, t):
+    """Small module board plugged in by a 3-pad header on its left edge."""
+    pads = "".join(f'<rect x="{x - 3}" y="{y + h / 2 - 13 + i * 10:.1f}" width="8" height="6" rx="1" fill="{t["copper"]}"/>'
+                   for i in range(3))
+    return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="{t["board2"]}" '
+            f'stroke="{t["copper"]}" stroke-opacity="0.7" stroke-width="1.5"/>'
+            + pads
+            + text(x + 18, y + 24, title.upper(), 12, t["copper"], MONO, weight="700", spacing=1.5)
+            + pills(items, x + 18, y + 54, x + w - 14, t))
+
+
+def stack_card(t):
+    """SKILLS IC fanning out over bent traces to one daughter board per group (2 x 2)."""
+    w, h = FULL, 300
+    x, y, cw, ch = 50, 85, 150, 150
     groups = CFG["skills"]
-    x, y, ch = 44, 50, 150
-    cw = 180 if variant == "A" else 150
-    pitch = ch / (len(groups) + 1)
+    mw, mh = 228, 100
+    cols, rows_y = (290, 558), (40, 180)
+    # pin k -> (module column, module row) and its route; pins sit at y + ch*(k+1)/5
+    py = [y + ch * (k + 1) / 5 for k in range(4)]
+    mid = [ry + mh / 2 for ry in rows_y]
+    routes = [
+        ((0, 0), [(x + cw + 8, py[0]), (245, py[0]), (245 + py[0] - mid[0], mid[0]), (cols[0] - 3, mid[0])]),
+        ((1, 0), [(x + cw + 8, py[1]), (247, py[1]), (254, 152), (532, 152), (532, mid[0] + 10),
+                  (542, mid[0]), (cols[1] - 3, mid[0])]),
+        ((1, 1), [(x + cw + 8, py[2]), (247, py[2]), (254, 168), (544, 168), (544, mid[1] - 6),
+                  (550, mid[1]), (cols[1] - 3, mid[1])]),
+        ((0, 1), [(x + cw + 8, py[3]), (245, py[3]), (245 + mid[1] - py[3], mid[1]), (cols[0] - 3, mid[1])]),
+    ]
     parts = []
-    for k, (name, items) in enumerate(groups):
-        py = y + pitch * (k + 1)
-        parts.append(f'<rect x="{x - 8}" y="{py - 3:.1f}" width="8" height="6" fill="{t["pin"]}"/>'
-                     f'<rect x="{x + cw}" y="{py - 3:.1f}" width="8" height="6" fill="{t["pin"]}"/>')
-        via = x + cw + 40
-        parts.append(trace([(x + cw + 8, py), (via, py)], t, pulse=0.5 * k))
-        if variant == "A":
-            parts.append(text(x + 22, py + 4.5, k + 1, 11, t["muted"], MONO))
-            parts.append(text(x + 40, py + 4.5, name.upper(), 12.5, t["text"], MONO, weight="700", spacing=1))
-            parts.append(pills(items, via + 16, py + 4, t))
-        else:
-            parts.append(text(via + 16, py + 4.5, name.upper(), 12, t["copper"], MONO, weight="700", spacing=1.5))
-            parts.append(pills(items, via + 140, py + 4, t))
-    if variant == "B":
-        parts.append(text(x + cw / 2, y + ch / 2 + 6, "SKILLS", 17, t["text"], MONO, weight="700",
-                          anchor="middle", spacing=3))
+    for k in range(4):
+        parts.append(f'<rect x="{x - 8}" y="{py[k] - 3:.1f}" width="8" height="6" fill="{t["pin"]}"/>'
+                     f'<rect x="{x + cw}" y="{py[k] - 3:.1f}" width="8" height="6" fill="{t["pin"]}"/>')
+    for k, ((c, r), pts) in enumerate(routes):
+        parts.append(trace(pts, t, pulse=0.6 * k))
+        name, items = groups[k]
+        parts.append(daughter(cols[c], rows_y[r], mw, mh, name, items, t))
+    parts.append(text(x + cw / 2, y + ch / 2 + 6, "SKILLS", 17, t["text"], MONO, weight="700",
+                      anchor="middle", spacing=3))
     title = "Skills: " + "; ".join(f"{a}: {', '.join(b)}" for a, b in groups)
-    return board(w, h, t, title, "SKILLS" if variant == "A" else None, (x, y, cw, ch), "".join(parts))
+    return board(w, h, t, title, None, (x, y, cw, ch), "".join(parts))
 
 
 def main():
@@ -337,8 +389,8 @@ def main():
             "id": id_card(d, t, avatar),
             "about": about_card(t),
             "activity": activity_card(d, t),
-            "stack-a": stack_card(t, "A"),
-            "stack-b": stack_card(t, "B"),
+            "stack": stack_card(t),
+            "contrib": contrib_card(d, t),
         }
         for i, proj in enumerate(CFG["projects"]):
             cards[f"repo-{i + 1}"] = repo_card(i, proj, d, t)
