@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: [scripts/gen_cards.py]
+    paths: ["scripts/**"]
 
 permissions:
   contents: write
