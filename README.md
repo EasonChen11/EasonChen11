@@ -1,76 +1,27 @@
-<div align="center">
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/holo-id?username=easonchen11&mode=light&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">
+  <img width="100%" alt="EasonChen's holographic collector card" src="https://www.gitskins.com/api/section/holo-id?username=easonchen11&mode=dark&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/holo-about?username=easonchen11&mode=light&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">
+  <img width="100%" alt="About EasonChen: Backend or systems engineer" src="https://www.gitskins.com/api/section/holo-about?username=easonchen11&mode=dark&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">
+</picture>
 
-# Hi, I'm Eason 👋
+<p>
+<a href="https://github.com/EasonChen11/MyMicroOcpp"><picture>  <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/holo-card?username=easonchen11&i=0&r=MyMicroOcpp&mode=light&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">  <img width="49%" alt="MyMicroOcpp: my project for ocpp" src="https://www.gitskins.com/api/section/holo-card?username=easonchen11&i=0&r=MyMicroOcpp&mode=dark&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM"></picture></a>
+<a href="https://github.com/EasonChen11/esp32_nat_router"><picture>  <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/holo-card?username=easonchen11&i=1&r=esp32_nat_router&mode=light&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">  <img width="49%" alt="esp32_nat_router" src="https://www.gitskins.com/api/section/holo-card?username=easonchen11&i=1&r=esp32_nat_router&mode=dark&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM"></picture></a>
+<a href="https://github.com/EasonChen11/image-proc-final"><picture>  <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/holo-card?username=easonchen11&i=2&r=image-proc-final&mode=light&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">  <img width="49%" alt="image-proc-final: image process class final project-Steganography" src="https://www.gitskins.com/api/section/holo-card?username=easonchen11&i=2&r=image-proc-final&mode=dark&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM"></picture></a>
+</p>
 
-**Embedded / Systems Developer**
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/holo-stack?username=easonchen11&mode=light&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">
+  <img width="100%" alt="Languages: C++, C, Python, JavaScript, Shell, HTML" src="https://www.gitskins.com/api/section/holo-stack?username=easonchen11&mode=dark&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/holo-log?username=easonchen11&mode=light&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">
+  <img width="100%" alt="The last 26 weeks of contributions, the streak and the year" src="https://www.gitskins.com/api/section/holo-log?username=easonchen11&mode=dark&v=2026-11-11&pv=IJ_vIn5tbYW7XYrM">
+</picture>
 
-M.S. student @ National Yang Ming Chiao Tung University  
-Interested in **Linux systems, embedded firmware, and networking**
+[GitHub](https://github.com/easonchen11)
 
-</div>
-
----
-
-## 🚀 What I'm Working On
-
-- Learning **Linux system programming**
-- Exploring **embedded networking and firmware development**
-- Building projects on **MCU platforms and Linux environments**
-
----
-
-## 🛠 Tech Stack
-
-### Programming
-
-![C](https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white)
-![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-
-### Embedded / Systems
-
-![ESP32](https://img.shields.io/badge/ESP32-black?style=flat-square)
-![FreeRTOS](https://img.shields.io/badge/FreeRTOS-00979D?style=flat-square)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
-
-### Tools
-
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
-![Jetson Nano](https://img.shields.io/badge/Jetson_Nano-A8E063?style=flat-square&logo=nvidia&logoColor=black)
-
----
-
-## 📊 Most Used Languages
-
-<div align="center">
-
-![Top Languages](https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=EasonChen11&layout=compact&theme=tokyonight&hide_border=true)
-
-</div>
-
----
-
-## 🎓 Education
-
-| | |
-|---|---|
-| 🎓 **M.S.** | National Yang Ming Chiao Tung University |
-| 🏫 **B.S.** | National Chung Cheng University |
-
----
-
-## 🌱 Interests
-
-- Linux kernel and system programming
-- Embedded firmware development
-- Networking systems and protocol design
-
----
-
-<div align="center">
-
-Feel free to reach out if you'd like to talk about  
-**Linux, Embedded Systems, or Networking**
-
-</div>
+<sub>Holo Card · collector's edition · made with <a href="https://www.gitskins.com/readme-generator">GitSkins</a></sub>
