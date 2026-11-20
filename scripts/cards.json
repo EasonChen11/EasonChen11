@@ -38,8 +38,8 @@
       "desc": "Wi-Fi beehive scale: ESP32 with dual HX711, web dashboard and MQTT"
     },
     {
-      "dnp": true,
-      "name": "RISC-V OS Kernel"
+      "repo": "riscv-os-kernel",
+      "desc": "RISC-V 64-bit kernel with Sv39 paging, copy-on-write fork, signals and a VFS; boots on OrangePi RV2 and QEMU"
     }
   ],
   "skills": [
